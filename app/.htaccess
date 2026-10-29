@@ -1,0 +1,59 @@
+# Mim Halı Yıkama — İşletme Sistemi · Apache yapılandırması
+Options -Indexes
+DirectoryIndex index.php
+
+# ---------------------------------------------------------------- HTTPS
+# Giriş formu http üzerinden de sunuluyordu: şifre düz metin gidebiliyordu.
+# Canlı ölçüm: http://…/sistem/ → 302 http'ye (https'e DEĞİL). Zorla https'e
+# yönlendirilir. (php -S yerel test sunucusu .htaccess uygulamaz → etkilenmez.)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+
+# ---------------------------------------------------------------- veri koruması
+# Veritabanı, log ve YÜKLENEN FOTOĞRAFLAR web'den tamamen kapalı.
+# Fotoğraflar yalnız ?p=foto üzerinden, yetki kontrolünden geçerek sunulur.
+<FilesMatch "\.(db|db-wal|db-shm|sqlite3?|dbpath\.php|log)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+RedirectMatch 404 ^/.*/data/
+RedirectMatch 404 ^/.*/data$
+RedirectMatch 404 ^/.*/(dbpath\.php|app\.log)$
+
+# PHP kaynak dosyalarına doğrudan erişimi engelle (kod zaten sadece <?php ile basılır)
+<FilesMatch "\.(md|log|bak|sql|zip|tar\.gz)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Referrer-Policy "same-origin"
+  Header set Permissions-Policy "geolocation=(), microphone=(), camera=(self)"
+</IfModule>
+
+# ---------------------------------------------------------------- cache
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  # HTML asla cache'lenmesin (eski veri göstermesin)
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>

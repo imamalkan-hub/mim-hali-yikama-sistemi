@@ -1,0 +1,12 @@
+{
+  "name": "Mim Halı Yıkama — İşletme Sistemi",
+  "short_name": "MİM Sistem",
+  "start_url": "?p=",
+  "display": "standalone",
+  "background_color": "#F2F5F8",
+  "theme_color": "#10243A",
+  "lang": "tr",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

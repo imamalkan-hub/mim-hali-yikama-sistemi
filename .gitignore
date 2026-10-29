@@ -1,0 +1,16 @@
+# Veritabanı ve yüklenen dosyalar — asla sürüm kontrolüne girmez
+app/data/*
+!app/data/.gitkeep
+app/data/*.db
+app/data/*.db-wal
+app/data/*.db-shm
+app/data/*.log
+app/data/fotos/
+app/apk/*.apk
+
+# Yerel ayarlar
+*.local
+.DS_Store
+
+# İkili dosyalar sürüm kontrolünde tutulmaz — GitHub Releases üzerinden dağıtılır
+releases/
