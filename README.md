@@ -42,6 +42,8 @@ Kurulum gerektirmez — tek klasörü sunucuya atıp açmanız yeterli.
 
 ## Kurulum (5 dakika)
 
+**📥 Hızlı indirme:** [Releases sayfasından `mim-hali-yikama-1.0.zip`](https://github.com/imamalkan-hub/mim-hali-yikama-sistemi/releases) indirin.
+
 Tam adımlar için **[KURULUM.md](KURULUM.md)** dosyasına bakın.
 
 **Özet (cPanel):**
@@ -114,7 +116,7 @@ app/
 
 ## Mobil uygulama
 
-**Android:** `releases/MimHaliYikama-1.0.apk`
+**Android:** [Releases sayfasından indirin](https://github.com/imamalkan-hub/mim-hali-yikama-sistemi/releases) → `MimHaliYikama-1.0.apk`
 
 - Native Kotlin + Jetpack Compose uygulamasıdır — **WebView değildir**
 - Kurulum: telefonda APK'ı aç → "bilinmeyen kaynaklara izin ver" → kur
